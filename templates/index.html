@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SortScope: see every step of sorting</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <h1>SortScope</h1>
+    <p>See every step of sorting, one line of C++ at a time.</p>
+  </header>
+
+  <div class="layout">
+    <aside class="side">
+      <section class="card">
+        <h2>Setup</h2>
+        <label class="field">
+          Numbers
+          <input id="numbers" type="text" value="40, 20, 35, 10, 15, 30, 25" placeholder="e.g. 40, 20, 35, 10" autocomplete="off">
+        </label>
+        <label class="field">
+          Algorithm
+          <select id="algoSel">
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="quick">Quick Sort (recursive)</option>
+            <option value="heapsort">Heap Sort</option>
+          </select>
+        </label>
+        <div class="btn-row">
+          <button id="sortBtn" type="button" class="primary">Sort</button>
+          <button id="randomBtn" type="button" class="ghost">Random array</button>
+        </div>
+        <p id="error" class="error" role="alert"></p>
+      </section>
+
+      <section class="card">
+        <h2>Playback</h2>
+        <div class="pad">
+          <button id="prevBtn" type="button" class="ghost" disabled>Previous</button>
+          <button id="playBtn" type="button" class="primary" disabled>Play</button>
+          <button id="nextBtn" type="button" class="ghost" disabled>Next</button>
+          <button id="resetBtn" type="button" class="ghost" disabled>Reset</button>
+          <button id="lastBtn" type="button" class="ghost" disabled>Show result</button>
+        </div>
+        <label class="speed">
+          Speed
+          <input id="speed" type="range" min="1" max="10" value="5">
+          <output id="speedVal"></output>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Counters</h2>
+        <dl class="counters">
+          <div><dt>Comparisons</dt><dd id="statComp">0</dd></div>
+          <div><dt id="moveLabel">Swaps</dt><dd id="statMoves">0</dd></div>
+          <div id="callsRow" hidden><dt>Heapify calls</dt><dd id="statCalls">0</dd></div>
+          <div><dt>Step</dt><dd id="statStep">0 / 0</dd></div>
+        </dl>
+      </section>
+    </aside>
+
+    <main class="main">
+      <section class="card viz" aria-label="Visualization">
+        <div id="bars"></div>
+        <div id="tree" hidden></div>
+        <div id="cells" hidden aria-label="Array"></div>
+        <p id="message" class="message">Loading…</p>
+        <p class="legend">
+          <i class="dot compare"></i>comparing
+          <i class="dot move"></i>swapped / shifted
+          <i class="dot mark"></i>current item
+          <i class="dot pivot"></i>pivot / smallest so far
+          <i class="dot sorted"></i>sorted
+        </p>
+      </section>
+
+      <div class="pair">
+        <section class="card code-card">
+          <h2 id="codeTitle">Code</h2>
+          <div id="code" aria-label="C++ code with the running line highlighted"></div>
+        </section>
+        <section class="card info-card">
+          <h2 id="infoTitle">About</h2>
+          <p id="infoDesc" class="desc"></p>
+          <dl id="complexity" class="cx"></dl>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
